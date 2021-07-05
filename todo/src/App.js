@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>login</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="./style.css">
-  </head>
-  <body>
-    <form>
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <form>
       <div className="input-wrapper">
         <label>name</label>
         <input placeholder="4+ characters" type="text" />
@@ -17,5 +15,8 @@
       </div>
       <button type="submit">login</button>
     </form>
-  </body>
-</html>
+    </div>
+  );
+}
+
+export default App;
