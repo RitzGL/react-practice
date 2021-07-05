@@ -1,21 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Button from "./components/Button";
+import React from "react";
+import Signin from "./pages/signin"
+import Dashboard from "./pages/dashboard"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <form>
-      <div className="input-wrapper">
-        <label>name</label>
-        <input placeholder="4+ characters" type="text" />
-      </div>
-      <div className="input-wrapper">
-        <label>password</label>
-        <input placeholder="password" type="password" />
-      </div>
-      <button type="submit">login</button>
-    </form>
-    </div>
+    <Router>
+      
+        <Switch>
+          <Route path="/">
+            <Signin />
+          </Route>
+
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+        </Switch>
+      
+    </Router>
   );
 }
 
