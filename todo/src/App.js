@@ -21,7 +21,7 @@ function App() {
           <Signin />
         </Route>
 
-        <Route path="/dashboard/:myparam">
+        <Route path="/dashboard">
           <Dashboard />
         </Route>
       </Switch>

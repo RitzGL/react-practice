@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./styles.css";
+// defining a component
+// components essentially being programmer-defined elements
 const Dashboard = (props) => {
+    // hardcoded values into the toDos, strings being passed in to 
+    // useState() as array of strings
   const [toDos, setToDos] = useState([
     "Hang out washing",
     "do this code assessment",
@@ -8,6 +12,7 @@ const Dashboard = (props) => {
     "ugh, take the washing back in",
     "yell at someone online",
   ]);
+//   destructuring to access inputValue and setInputValue from useState
   const [inputValue, setInputValue] = useState("");
 
   function logSomething(todo) {
@@ -46,6 +51,11 @@ const Dashboard = (props) => {
             </select>
           </div>
           <ol>
+              {/* 
+                calling .map() on the toDos array
+                appending the list tags onto each string
+                rendering the whole list unto a parent element (ordered list)
+              */}
             {toDos.map((todo) => (
               <li key={todo} onClick={() => logSomething(todo)}>
                 {todo}
@@ -63,6 +73,11 @@ const Dashboard = (props) => {
                 type="text"
                 onChange={(e) => setInputValue(e.target.value)}
               />
+              {/* 
+                this button submits the information inside the input
+                handleButtonClick will then invoke addToDo in order to update 
+                the array of todos, which is then rendered above in the .map()
+              */}
               <button type="button" onClick={(e) => handleButtonClick(e)}>
                 +
               </button>
