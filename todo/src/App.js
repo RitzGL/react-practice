@@ -1,9 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Button from "./components/Button";
 import React from "react";
-import Signin from "./pages/signin"
-import Dashboard from "./pages/dashboard"
+import Signin from "./pages/signin";
+import Dashboard from "./pages/dashboard";
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,17 +16,15 @@ import {
 function App() {
   return (
     <Router>
-      
-        <Switch>
-          <Route path="/">
-            <Signin />
-          </Route>
+      <Switch>
+        <Route exact path="/">
+          <Signin />
+        </Route>
 
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-        </Switch>
-      
+        <Route path="/dashboard/:myparam">
+          <Dashboard />
+        </Route>
+      </Switch>
     </Router>
   );
 }
