@@ -1,7 +1,25 @@
-import React from "react";
-import "./styles.css"
+import React, {useState} from "react";
+import "./styles.css";
 const Signin = (props) => {
-  return (
+    // import the state to use in order to get values
+    const [user, setUser] = useState();
+    // write a function to get the value from the form
+    function getFormValue(){
+
+    }
+    // write a function to populate array with objects
+    function populateUserArray(){
+
+    }
+    // write a function to stringify and store the array into local storage
+    function storeUsers(){
+
+    }
+    // write a function to retrieve array from local storage
+    function retrieveUsers(){
+        
+    }
+    return (
     <form>
       <div className="input-wrapper">
         <label>name</label>

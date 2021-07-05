@@ -3,8 +3,8 @@ import "./styles.css";
 // defining a component
 // components essentially being programmer-defined elements
 const Dashboard = (props) => {
-    // hardcoded values into the toDos, strings being passed in to 
-    // useState() as array of strings
+  // hardcoded values into the toDos, strings being passed in to
+  // useState() as array of strings
   const [toDos, setToDos] = useState([
     "Hang out washing",
     "do this code assessment",
@@ -12,11 +12,14 @@ const Dashboard = (props) => {
     "ugh, take the washing back in",
     "yell at someone online",
   ]);
-//   destructuring to access inputValue and setInputValue from useState
+  //   destructuring to access inputValue and setInputValue from useState
   const [inputValue, setInputValue] = useState("");
 
-  function logSomething(todo) {
-    console.log(todo);
+  function removeToDo(todo) {
+    const updatedToDos = toDos.filter((element) => element !== todo);
+    console.log("individual todo being clicked", todo);
+    console.log("all the todos inside array:", updatedToDos);
+    setToDos(updatedToDos);
   }
   // function takes in new data and adds it to the existing array
   function addToDo(addedToDo) {
@@ -51,13 +54,13 @@ const Dashboard = (props) => {
             </select>
           </div>
           <ol>
-              {/* 
+            {/* 
                 calling .map() on the toDos array
                 appending the list tags onto each string
                 rendering the whole list unto a parent element (ordered list)
               */}
             {toDos.map((todo) => (
-              <li key={todo} onClick={() => logSomething(todo)}>
+              <li key={todo} onClick={() => removeToDo(todo)}>
                 {todo}
               </li>
             ))}

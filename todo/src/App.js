@@ -13,6 +13,7 @@ import {
   useLocation,
 } from "react-router-dom";
 
+// functionally similar to a main()
 function App() {
   return (
     <Router>
