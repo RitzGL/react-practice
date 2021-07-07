@@ -27,6 +27,7 @@ const Dashboard = (props) => {
     const newToDos = [...toDos, addedToDo];
     // function received from destructuring on line 4
     setToDos(newToDos);
+    
   }
   //   this function logs the inputValue (line 11) from the input element
   function handleButtonClick() {

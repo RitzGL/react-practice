@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 import Signin from "./pages/signin";
@@ -7,10 +6,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation,
 } from "react-router-dom";
 
 // functionally similar to a main()
