@@ -7,6 +7,7 @@ const Signin = (props) => {
     { username: "ritzie", password: "password", id: 2 },
   ]);
 
+  // universally available all over the component's scope
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,6 +15,7 @@ const Signin = (props) => {
   function storeUsers() {
     localStorage.setItem("users", JSON.stringify(users));
   }
+
   // write a function to retrieve array from local storage
   function retrieveUsers() {
     const users = JSON.parse(localStorage.getItem("users"));
@@ -24,24 +26,33 @@ const Signin = (props) => {
   // handle the submission of the username
   // onChange={(e) => setUsername(e.target.value)}
   function handleUsernameSubmit(e) {
-    setUsername(e.target.value)
+    // value is scanned for on every keystroke because onChange
+    // hence the alert firing off when user begins to type
+    // could i copy the value into a separate variable?
+    if (e.target.value.length >= 4) {
+      // set username to the value of the event's target
+      setUsername(e.target.value);
+    } else {
+      alert("Username must be longer than 4 character!");
+      // set the username to blank, preventing successful signin
+      setUsername("");
+    }
   }
   // handle the submission of the password
   // onChange={(e) => setPassword(e.target.value)}
   function handlePasswordSubmit(e) {
-    setPassword(e.target.value)
+    setPassword(e.target.value);
   }
 
   // storing the array into local storage for later comparison
 
   // write a function to get the value from the form
-  function getInputFieldValue(e) {
+  function signIn(e) {
     e.preventDefault();
-    console.log(username)
-    console.log(password)
-
+    console.log(username);
+    console.log(password);
   }
-  
+
   return (
     <form>
       <div className="input-wrapper">
@@ -50,6 +61,7 @@ const Signin = (props) => {
           min="4"
           placeholder="4+ characters"
           type="text"
+          // keeping the setUsername wrapped, for validation
           onChange={(e) => handleUsernameSubmit(e)}
         />
       </div>
@@ -58,11 +70,13 @@ const Signin = (props) => {
         <input
           placeholder="password"
           type="password"
+          // Perhaps the password can stay wrapped too
           onChange={(e) => handlePasswordSubmit(e)}
         />
       </div>
-      <button type="submit"
-      onClick={(e) => getInputFieldValue(e) }>Login</button>
+      <button type="submit" onClick={(e) => signIn(e)}>
+        Login
+      </button>
     </form>
   );
 };
