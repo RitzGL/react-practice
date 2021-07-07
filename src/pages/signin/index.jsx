@@ -29,14 +29,7 @@ const Signin = (props) => {
     // value is scanned for on every keystroke because onChange
     // hence the alert firing off when user begins to type
     // could i copy the value into a separate variable?
-    if (e.target.value.length >= 4) {
-      // set username to the value of the event's target
-      setUsername(e.target.value);
-    } else {
-      alert("Username must be longer than 4 character!");
-      // set the username to blank, preventing successful signin
-      setUsername("");
-    }
+    setUsername(e.target.value);
   }
   // handle the submission of the password
   // onChange={(e) => setPassword(e.target.value)}
@@ -48,6 +41,22 @@ const Signin = (props) => {
 
   // write a function to get the value from the form
   function signIn(e) {
+    // getting users array in order to do comparison
+    // ! Run the username/password checks in here
+    // ! This function occurs AFTER the events are handled
+    if (username.length <= 4) alert("Username must be longer than 4 character!");
+    const users = retrieveUsers();
+    // need to think of better way to authenticate a user with their password
+    // will push these changes, progress has been made!
+    users.forEach((user) => {
+      if(user.username === username && user.password === password){
+       console.log("Successful Sign in!")
+       return;
+      }else{
+        console.error("Error! User not found!")
+      }
+    })
+    console.log(users);
     e.preventDefault();
     console.log(username);
     console.log(password);
