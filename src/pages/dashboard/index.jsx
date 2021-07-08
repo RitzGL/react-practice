@@ -45,12 +45,16 @@ const Dashboard = (props) => {
     setCompletedToDos(updatedCompleted);
   }
   //   this function logs the inputValue (line 11) from the input element
-  function handleButtonClick() {
+  function handleButtonClick(e) {
     console.log("testing reading value: ", inputValue);
     // calling the function to update the array
     addToDo(inputValue);
     // clearing the input value so as not to reuse past values
     setInputValue("");
+
+    const input = document.querySelector("input");
+
+    input.value = "";
   }
   return (
     <>
