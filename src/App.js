@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import Signin from "./pages/signin";
 import Dashboard from "./pages/dashboard";
 import {
@@ -11,16 +11,18 @@ import {
 
 // functionally similar to a main()
 function App() {
+  const [auth, setAuth] = useState(false)
   function getAuth(){
     const auth = JSON.parse(localStorage.getItem("auth"))
     console.log(auth)
-    return auth;
+    if(auth){setAuth(auth)} 
   }
+  getAuth();
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-        {getAuth() ? <Redirect to="/dashboard" /> : <Signin />}
+        {auth ? <Redirect to="/dashboard" /> : <Signin />}
         </Route>
 
         <Route path="/dashboard">
