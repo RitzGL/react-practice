@@ -26,3 +26,12 @@ This is a list of things yet to be implemented to achieve expected application b
     - Completed
     - All
 
+### Implemented And Somewhat Stable
+
+Adding to-do's works as intended: they are added to an array, and redered on the page correctly. 
+
+Deleting from the to-do array will result in the displaying of a Done (completed) array underneath it. 
+
+Have yet to figure out how to conditionally render things on the page, based on the option selected from the select element.
+
+Will need to research this. 
