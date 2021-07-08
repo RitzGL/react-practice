@@ -20,6 +20,7 @@ const Dashboard = (props) => {
     console.log("individual todo being clicked", todo);
     console.log("all the todos inside array:", updatedToDos);
     setToDos(updatedToDos);
+    addCompleted(todo);
   }
   // function takes in new data and adds it to the existing array
   function addToDo(addedToDo) {
@@ -28,6 +29,20 @@ const Dashboard = (props) => {
     // function received from destructuring on line 4
     setToDos(newToDos);
     
+  }
+
+  // declaring new array of completedToDos, derived from copied values
+  const [completedToDos, setCompletedToDos] = useState([]);
+  function addCompleted(completeToDo){
+    const doneToDos = [...completedToDos,completeToDo]
+    setCompletedToDos(doneToDos);
+    console.log(doneToDos);
+  }
+
+  // working with separate array, thus giving it its own remove helper function
+  function removeCompleted(complete){
+    const updatedCompleted = completedToDos.filter((item) => item !== complete);
+    setCompletedToDos(updatedCompleted);
   }
   //   this function logs the inputValue (line 11) from the input element
   function handleButtonClick() {
@@ -54,6 +69,7 @@ const Dashboard = (props) => {
               <option value="both">All Todos</option>
             </select>
           </div>
+          <h2>In Progress</h2>
           <ol>
             {/* 
                 calling .map() on the toDos array
@@ -63,6 +79,14 @@ const Dashboard = (props) => {
             {toDos.map((todo) => (
               <li key={todo} onClick={() => removeToDo(todo)}>
                 {todo}
+              </li>
+            ))}
+          </ol>
+          <h2>Done</h2>
+          <ol>
+            {completedToDos.map((complete) => (
+              <li key={complete} onClick={() => removeCompleted(complete)}>
+                {complete}
               </li>
             ))}
           </ol>
