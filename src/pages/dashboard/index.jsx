@@ -59,12 +59,16 @@ const Dashboard = (props) => {
     setMenuChoice(e.target.value);
     console.log(menuChoice)
   }
+
+  function logout(){
+    localStorage.removeItem("auth");
+  }
   return (
     <>
       <nav>
         <button>Settings</button>
         <h4>Not Another Todo List</h4>
-        <button>logout</button>
+        <button onClick={() => logout()}>logout</button>
       </nav>
       <main>
         <aside>

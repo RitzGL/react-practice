@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import "./styles.css";
+// import Dashboard from "../dashboard"
 const Signin = (props) => {
   // setting intiail state as 2 users with unique passwords
   const [users, setUser] = useState([
-    { username: "admin", password: "admin", id: 1 },
-    { username: "ritzie", password: "password", id: 2 },
+    { username: "admin", password: "admin" },
+    { username: "ritzie", password: "password" },
   ]);
 
   // universally available all over the component's scope
@@ -38,28 +40,28 @@ const Signin = (props) => {
   }
 
   // storing the array into local storage for later comparison
-
   // write a function to get the value from the form
   function signIn(e) {
     // getting users array in order to do comparison
-    // ! Run the username/password checks in here
-    // ! This function occurs AFTER the events are handled
-    if (username.length <= 4) alert("Username must be longer than 4 character!");
+    if (username.length <= 4)
+      alert("Username must be longer than 4 characters!");
     const users = retrieveUsers();
     // need to think of better way to authenticate a user with their password
     // will push these changes, progress has been made!
-    users.forEach((user) => {
-      if(user.username === username && user.password === password){
-       console.log("Successful Sign in!")
-       return;
-      }else{
-        console.error("Error! User not found!")
-      }
-    })
-    console.log(users);
+    const inputLogin = { username: username, password: password };
+    console.log(inputLogin);
+
+    const found = users.some(
+      (user) =>
+        user.username === inputLogin.username &&
+        user.password === inputLogin.password
+    );
+
     e.preventDefault();
-    console.log(username);
-    console.log(password);
+    // I could try and implement useContext, but this spaghetti code is 
+    // too far gone at this point
+    localStorage.setItem("auth", JSON.stringify(found))
+
   }
 
   return (
@@ -83,7 +85,12 @@ const Signin = (props) => {
           onChange={(e) => handlePasswordSubmit(e)}
         />
       </div>
-      <button type="submit" onClick={(e) => signIn(e)}>
+      <button
+        type="submit"
+        onClick={(e) => {
+          signIn(e);
+        }}
+      >
         Login
       </button>
     </form>
