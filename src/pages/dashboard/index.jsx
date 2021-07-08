@@ -28,19 +28,18 @@ const Dashboard = (props) => {
     const newToDos = [...toDos, addedToDo];
     // function received from destructuring on line 4
     setToDos(newToDos);
-    
   }
 
   // declaring new array of completedToDos, derived from copied values
   const [completedToDos, setCompletedToDos] = useState([]);
-  function addCompleted(completeToDo){
-    const doneToDos = [...completedToDos,completeToDo]
+  function addCompleted(completeToDo) {
+    const doneToDos = [...completedToDos, completeToDo];
     setCompletedToDos(doneToDos);
     console.log(doneToDos);
   }
 
   // working with separate array, thus giving it its own remove helper function
-  function removeCompleted(complete){
+  function removeCompleted(complete) {
     const updatedCompleted = completedToDos.filter((item) => item !== complete);
     setCompletedToDos(updatedCompleted);
   }
@@ -51,10 +50,14 @@ const Dashboard = (props) => {
     addToDo(inputValue);
     // clearing the input value so as not to reuse past values
     setInputValue("");
-
     const input = document.querySelector("input");
-
+    // clearing the input box
     input.value = "";
+  }
+  const [menuChoice, setMenuChoice] = useState("both");
+  function handleMenuChange(e) {
+    setMenuChoice(e.target.value);
+    console.log(menuChoice)
   }
   return (
     <>
@@ -67,9 +70,15 @@ const Dashboard = (props) => {
         <aside>
           <div>
             <label htmlFor="select-status">TODOS</label>
-            <select name="select-status" id="status">
+            <select
+              name="select-status"
+              id="status"
+              onChange={(e) => {
+                handleMenuChange(e);
+              }}
+            >
               <option value="completed">Completed</option>
-              <option value="todo">TODO :'</option>
+              <option value="todo">TO DO</option>
               <option value="both">All Todos</option>
             </select>
           </div>
