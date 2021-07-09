@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Signin from "./pages/signin";
 import Dashboard from "./pages/dashboard";
+import store from "./store";
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,7 +16,7 @@ function App() {
   function getAuth(){
     const auth = JSON.parse(localStorage.getItem("auth"))
     console.log(auth)
-    if(auth){setAuth(auth)} 
+    // if(auth){setAuth(auth)}
   }
   getAuth();
   return (
