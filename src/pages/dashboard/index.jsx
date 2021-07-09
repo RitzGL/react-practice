@@ -1,74 +1,73 @@
 import React, { useState } from "react";
 import "./styles.css";
+import { v4 as uuidv4 } from 'uuid';
 // defining a component
 // components essentially being programmer-defined elements
 const Dashboard = (props) => {
   // hardcoded values into the toDos, strings being passed in to
   // useState() as array of strings
-  const [toDos, setToDos] = useState([
-    "Hang out washing",
-    "do this code assessment",
-    "make a grilled cheese sandwich",
-    "ugh, take the washing back in",
-    "yell at someone online",
+  const [list, setList] = useState([
+    {name: "Hang out washing",
+     completed: false,
+     created: new Date().getTime(),
+     id:uuidv4()
+    }
   ]);
   //   destructuring to access inputValue and setInputValue from useState
   const [inputValue, setInputValue] = useState("");
 
-  function removeToDo(todo) {
-    const updatedToDos = toDos.filter((element) => element !== todo);
-    console.log("individual todo being clicked", todo);
-    console.log("all the todos inside array:", updatedToDos);
-    setToDos(updatedToDos);
-    addCompleted(todo);
-  }
-  // function takes in new data and adds it to the existing array
-  function addToDo(addedToDo) {
-    // spread syntax to avoid overwriting the exising array
-    const newToDos = [...toDos, addedToDo];
-    // function received from destructuring on line 4
-    setToDos(newToDos);
-  }
+  
 
-  // declaring new array of completedToDos, derived from copied values
-  const [completedToDos, setCompletedToDos] = useState([]);
-  function addCompleted(completeToDo) {
-    const doneToDos = [...completedToDos, completeToDo];
-    setCompletedToDos(doneToDos);
-    console.log(doneToDos);
-  }
-
-  // working with separate array, thus giving it its own remove helper function
-  function removeCompleted(complete) {
-    const updatedCompleted = completedToDos.filter((item) => item !== complete);
-    setCompletedToDos(updatedCompleted);
-  }
-  //   this function logs the inputValue (line 11) from the input element
+  //  * Create new item object, call addItem
+  // * Clear inputValue and input field after addition
   function handleButtonClick(e) {
     console.log("testing reading value: ", inputValue);
-    // calling the function to update the array
-    addToDo(inputValue);
+    // ! Creating new item
+    const newItem = {
+      name: inputValue,
+      completed: false,
+      created: new Date().getTime(),
+      id: uuidv4()
+    }
+    // console.log("newest added item: ", newItem)
+    // addItem(newItem);
+    // ! Setting the new list by spreading old one, plus new item
+    const newList = [...list, newItem];
+    setList(newList);
+
     // clearing the input value so as not to reuse past values
     setInputValue("");
     const input = document.querySelector("input");
     // clearing the input box
     input.value = "";
+    return newList;
   }
+
+  function updateItemStatus(item, e) {
+    console.log(item.id)
+    // TODO look inside current state list
+    // TODO compare item.id to listItems.id
+    // TODO update complete value of matching element to true
+    // * this list array will be available to me with updated values
+    //  * as long as no refreshing occurs
+    console.log(list)
+    
+  }
+
+  // TODO read the select element's value, render based on
+  // TODO completed boolean value
   const [menuChoice, setMenuChoice] = useState("both");
   function handleMenuChange(e) {
     setMenuChoice(e.target.value);
     console.log(menuChoice)
   }
 
-  function logout(){
-    localStorage.removeItem("auth");
-  }
   return (
     <>
       <nav>
         <button>Settings</button>
         <h4>Not Another Todo List</h4>
-        <button onClick={() => logout()}>logout</button>
+        <button>logout</button>
       </nav>
       <main>
         <aside>
@@ -93,17 +92,9 @@ const Dashboard = (props) => {
                 appending the list tags onto each string
                 rendering the whole list unto a parent element (ordered list)
               */}
-            {toDos.map((todo) => (
-              <li key={todo} onClick={() => removeToDo(todo)}>
-                {todo}
-              </li>
-            ))}
-          </ol>
-          <h2>Done</h2>
-          <ol>
-            {completedToDos.map((complete) => (
-              <li key={complete} onClick={() => removeCompleted(complete)}>
-                {complete}
+            {list.map((item) => (
+              <li key={item.id} onClick={(e) => updateItemStatus(item, e)}>
+                {item.name}
               </li>
             ))}
           </ol>
