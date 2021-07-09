@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { v4 as uuidv4 } from 'uuid';
-// defining a component
-// components essentially being programmer-defined elements
+
+// * components essentially being programmer-defined elements
 const Dashboard = (props) => {
-  // hardcoded values into the toDos, strings being passed in to
-  // useState() as array of strings
+  // * initial state of application when reloaded
   const [list, setList] = useState([
     {name: "Hang out washing",
      completed: false,
@@ -13,10 +12,8 @@ const Dashboard = (props) => {
      id:uuidv4()
     }
   ]);
-  //   destructuring to access inputValue and setInputValue from useState
+  // * gaining access to component state with useState hook
   const [inputValue, setInputValue] = useState("");
-
-  
 
   //  * Create new item object, call addItem
   // * Clear inputValue and input field after addition
@@ -29,18 +26,15 @@ const Dashboard = (props) => {
       created: new Date().getTime(),
       id: uuidv4()
     }
-    // console.log("newest added item: ", newItem)
-    // addItem(newItem);
     // ! Setting the new list by spreading old one, plus new item
     const newList = [...list, newItem];
     setList(newList);
 
-    // clearing the input value so as not to reuse past values
+    // * clearing the input value so as not to reuse past values
     setInputValue("");
+    // * clearing the input box
     const input = document.querySelector("input");
-    // clearing the input box
     input.value = "";
-    return newList;
   }
 
   function updateItemStatus(item, e) {
