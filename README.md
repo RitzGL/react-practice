@@ -43,7 +43,7 @@ Had I spent more time learning redux, I think I would have been better able to d
 
 Learning how to create React applications has been insightful. I now have a better grasp in numerous React related topics:
 
--React app's folder structure 
+-React app's folder structure
 -React's syntax
 -Recent addition of hooks and why they were implemented
 -Previous Class component syntax
