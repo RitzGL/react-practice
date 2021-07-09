@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import "./styles.css";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice";
+import { store } from '../../store'
 // import Dashboard from "../dashboard"
 const Signin = (props) => {
   // setting intiail state as 2 users with unique passwords
@@ -39,29 +41,38 @@ const Signin = (props) => {
     setPassword(e.target.value);
   }
 
+  const loggedIn = useSelector(state => state.auth)
+  const dispatch = useDispatch();
   // storing the array into local storage for later comparison
   // write a function to get the value from the form
   function signIn(e) {
-    // getting users array in order to do comparison
+    // * Prevent the page from refresing
+    e.preventDefault();
+
+    // * Checking username is of appropriate length
     if (username.length <= 4)
       alert("Username must be longer than 4 characters!");
+
+    // * getting users array in order to do comparison
     const users = retrieveUsers();
-    // need to think of better way to authenticate a user with their password
-    // will push these changes, progress has been made!
+
+    // * Setting input login as the values obtained from form
     const inputLogin = { username: username, password: password };
     console.log(inputLogin);
 
+    // * Checking if input user exists inside database
     const found = users.some(
       (user) =>
         user.username === inputLogin.username &&
         user.password === inputLogin.password
     );
-
-    e.preventDefault();
-    // I could try and implement useContext, but this spaghetti code is 
-    // too far gone at this point
-    localStorage.setItem("auth", JSON.stringify(found))
-
+    console.log("User found in db:",found)
+    console.log(login)
+    // ! attempting to update status by dispatching the login callbackin 
+    // ! authSlice.js
+    // ! value is not updated, thus always redirecting to the signin page
+    if(found) dispatch(login)
+    console.log("Redux auth.value:",loggedIn)
   }
 
   return (
@@ -88,7 +99,7 @@ const Signin = (props) => {
       <button
         type="submit"
         onClick={(e) => {
-          signIn(e);
+         signIn(e);
         }}
       >
         Login

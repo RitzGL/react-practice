@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Signin from "./pages/signin";
 import Dashboard from "./pages/dashboard";
-import store from "./store";
+import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,18 +12,14 @@ import {
 
 // functionally similar to a main()
 function App() {
-  const [auth, setAuth] = useState(false)
-  function getAuth(){
-    const auth = JSON.parse(localStorage.getItem("auth"))
-    console.log(auth)
-    // if(auth){setAuth(auth)}
-  }
-  getAuth();
+  // * Looking inside the global store wrapping this app
+  const auth = useSelector(state => state.auth)
+  console.log(auth)
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-        {auth ? <Redirect to="/dashboard" /> : <Signin />}
+        {auth.value ? <Redirect to="/dashboard" /> : <Signin />}
         </Route>
 
         <Route path="/dashboard">
